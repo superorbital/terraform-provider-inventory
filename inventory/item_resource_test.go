@@ -40,10 +40,10 @@ resource "inventory_item" "test" {
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("item_item.test", "name", "jet"),
-					resource.TestCheckResourceAttr("item_item.test", "tag", "SR-71 Blackbird"),
+					resource.TestCheckResourceAttr("inventory_item.test", "name", "jet"),
+					resource.TestCheckResourceAttr("inventory_item.test", "tag", "SR-71 Blackbird"),
 					// Verify dynamic values have any value set in the state.
-					resource.TestCheckResourceAttrSet("item_item.test", "id"),
+					resource.TestCheckResourceAttrSet("inventory_item.test", "id"),
 				),
 			},
 			// Delete testing automatically occurs in TestCase
