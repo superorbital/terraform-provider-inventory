@@ -1,5 +1,7 @@
 # Inventory service provider for Terraform
 
+A modern (protocol 6) Terraform provider for the demo inventory service (work-in-progress).
+
 ## `terraform-provider-inventory`
 
 This Terraform provider code for the inventory service is a proof of concept used primarily for teaching.
