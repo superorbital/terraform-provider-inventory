@@ -23,7 +23,7 @@ data "inventory_item" "test" {
 }
 `),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					// Verify the todo to ensure all attributes are set
+					// Verify the item to ensure all attributes are set
 					resource.TestCheckResourceAttr("data.inventory_item.test", "name", "car"),
 					resource.TestCheckResourceAttr("data.inventory_item.test", "tag", "mustang"),
 					// Verify placeholder id attribute
