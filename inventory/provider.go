@@ -107,7 +107,7 @@ func (p *inventoryProvider) Configure(ctx context.Context, req provider.Configur
 	}
 
 	if !config.Port.IsNull() {
-		host = config.Port.ValueString()
+		port = config.Port.ValueString()
 	}
 
 	// If any of the expected configurations are missing, return
