@@ -128,7 +128,7 @@ repos:
   #
   # Style Checkers
   #
-  -   id: go-lint
+  #-   id: go-lint
   -   id: go-critic
   #
   # GolangCI-Lint
