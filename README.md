@@ -70,9 +70,15 @@ Then go ahead and create a new release in Github. This will kick of the Github a
 
 ```sh
 brew install pre-commit jq shellcheck shfmt git-secrets go-critic golangci-lint
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.15.0
 go install github.com/BurntSushi/toml/cmd/tomlv@master
 go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+go install github.com/orijtech/structslop/cmd/structslop
+go install github.com/sqs/goreturns@latest
+go install golang.org/x/lint/golint@latest
 go install golang.org/x/tools/cmd/goimports@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
+go install mvdan.cc/gofumpt@latest
 
 mkdir -p ${HOME}/.git-template/hooks
 git config --global init.templateDir ${HOME}/.git-template

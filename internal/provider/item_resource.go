@@ -82,7 +82,7 @@ func (r *itemResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 func (r *itemResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	// Retrieve import ID and save to id attribute
 	// If our ID was a string then we could do this
-	//resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	// resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 
 	id, err := strconv.ParseInt(req.ID, 10, 64)
 
