@@ -71,6 +71,7 @@ Then go ahead and create a new release in Github. This will kick of the Github a
 ```sh
 brew install pre-commit jq shellcheck shfmt git-secrets go-critic golangci-lint
 curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.15.0
+curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 go install github.com/BurntSushi/toml/cmd/tomlv@master
 go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
 go install github.com/orijtech/structslop/cmd/structslop
