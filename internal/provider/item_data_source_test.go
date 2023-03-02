@@ -1,4 +1,4 @@
-package inventory
+package provider
 
 import (
 	"fmt"
@@ -14,8 +14,8 @@ func TestAccItemDataSource(t *testing.T) {
 			{
 				Config: providerConfig + fmt.Sprintf(`
 resource "inventory_item" "test" {
-	name = "car"
-	tag = "mustang"
+  name = "2022 Mustang Shelby GT500"
+  tag = "USD:79,420"
 }
 
 data "inventory_item" "test" {
@@ -24,8 +24,8 @@ data "inventory_item" "test" {
 `),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					// Verify the item to ensure all attributes are set
-					resource.TestCheckResourceAttr("data.inventory_item.test", "name", "car"),
-					resource.TestCheckResourceAttr("data.inventory_item.test", "tag", "mustang"),
+					resource.TestCheckResourceAttr("data.inventory_item.test", "name", "2022 Mustang Shelby GT500"),
+					resource.TestCheckResourceAttr("data.inventory_item.test", "tag", "USD:79,420"),
 					// Verify placeholder id attribute
 					resource.TestCheckResourceAttrSet("data.inventory_item.test", "id"),
 				),

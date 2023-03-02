@@ -1,4 +1,4 @@
-package inventory
+package provider
 
 import (
 	"context"
@@ -284,7 +284,7 @@ func (r *itemResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 		return
 	}
 
-	// update item
+	// delete item
 	_, err := r.client.DeleteItem(ctx, state.ID.ValueInt64())
 	if err != nil {
 		resp.Diagnostics.AddError(

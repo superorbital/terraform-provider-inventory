@@ -1,4 +1,4 @@
-package inventory
+package provider
 
 import (
 	"context"
@@ -21,12 +21,21 @@ var (
 )
 
 // New is a helper function to simplify provider server and testing implementation.
-func New() provider.Provider {
-	return &inventoryProvider{}
+func New(version string) func() provider.Provider {
+	return func() provider.Provider {
+		return &inventoryProvider{
+			version: version,
+		}
+	}
 }
 
 // inventoryProvider is the provider implementation.
-type inventoryProvider struct{}
+type inventoryProvider struct {
+	// version is set to the provider version on release, "dev" when the
+	// provider is built and ran locally, and "test" when running acceptance
+	// testing.
+	version string
+}
 
 // inventoryProviderModel maps provider schema data to a Go type.
 type inventoryProviderModel struct {
@@ -37,6 +46,7 @@ type inventoryProviderModel struct {
 // Metadata returns the provider type name.
 func (p *inventoryProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "inventory"
+	resp.Version = p.version
 }
 
 // Schema defines the provider-level schema for configuration data.

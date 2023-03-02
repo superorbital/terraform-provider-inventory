@@ -1,4 +1,4 @@
-package inventory
+package provider
 
 import (
 	"testing"
@@ -14,13 +14,13 @@ func TestAccItemResource(t *testing.T) {
 			{
 				Config: providerConfig + `
 resource "inventory_item" "test" {
-    name = "bottle"
-    tag  = "rare"
+    name = "Jones Extreme Sour Cherry Warhead Soda"
+    tag = "USD:2.99"
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("inventory_item.test", "name", "bottle"),
-					resource.TestCheckResourceAttr("inventory_item.test", "tag", "rare"),
+					resource.TestCheckResourceAttr("inventory_item.test", "name", "Jones Extreme Sour Cherry Warhead Soda"),
+					resource.TestCheckResourceAttr("inventory_item.test", "tag", "USD:2.99"),
 					// Verify dynamic values have any value set in the state.
 					resource.TestCheckResourceAttrSet("inventory_item.test", "id"),
 				),
@@ -35,13 +35,13 @@ resource "inventory_item" "test" {
 			{
 				Config: providerConfig + `
 resource "inventory_item" "test" {
-    name = "jet"
-    tag  = "SR-71 Blackbird"
+    name = "1928 de Havilland DH-60GM"
+    tag  = "USD:110,781"
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("inventory_item.test", "name", "jet"),
-					resource.TestCheckResourceAttr("inventory_item.test", "tag", "SR-71 Blackbird"),
+					resource.TestCheckResourceAttr("inventory_item.test", "name", "1928 de Havilland DH-60GM"),
+					resource.TestCheckResourceAttr("inventory_item.test", "tag", "USD:110,781"),
 					// Verify dynamic values have any value set in the state.
 					resource.TestCheckResourceAttrSet("inventory_item.test", "id"),
 				),

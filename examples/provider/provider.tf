@@ -14,11 +14,11 @@ provider "inventory" {
 
 # Read in a existing inventory item
 data "inventory_item" "example" {
- id = "1000"
+  id = "1000"
 }
 
 # Create a new inventory item
 resource "inventory_item" "example" {
- name = "car"
- tag  = "mustang"
+  name = "car"
+  tag  = "mustang"
 }

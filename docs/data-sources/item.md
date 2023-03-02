@@ -14,7 +14,7 @@ Fetch an item.
 ```terraform
 # Read in a existing inventory item
 data "inventory_item" "example" {
- id = "1000"
+  id = "1000"
 }
 ```
 
