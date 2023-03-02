@@ -56,23 +56,30 @@ make generate
 
 Then go ahead and create a new release in Github. This will kick of the Github action to handle the rest. Release tags should use semantic versioning and look something like this `v1.0.2`.
 
-## Pre-Commit Hooks
+### Pre-Commit Hooks
 
 - See: [pre-commit](https://pre-commit.com/)
   - [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks)
   - [antonbabenko/pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform)
 
-### Install
+#### Install
 
-#### Local Install (macOS)
+##### Local Install (macOS)
 
 - **IMPORTANT**: All developers committing any code to this repo, should have these pre-commit hooks installed locally. Github actions may also run these at some point, but it is generally faster and easier to run them locally, in most cases.
 
 ```sh
 brew install pre-commit jq shellcheck shfmt git-secrets go-critic golangci-lint
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.15.0
+curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 go install github.com/BurntSushi/toml/cmd/tomlv@master
 go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+go install github.com/orijtech/structslop/cmd/structslop
+go install github.com/sqs/goreturns@latest
+go install golang.org/x/lint/golint@latest
 go install golang.org/x/tools/cmd/goimports@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
+go install mvdan.cc/gofumpt@latest
 
 mkdir -p ${HOME}/.git-template/hooks
 git config --global init.templateDir ${HOME}/.git-template
@@ -94,12 +101,12 @@ pre-commit run -a
 git diff
 ```
 
-### Checks
+#### Checks
 
 See:
 
 - [.pre-commit-config.yaml](./.pre-commit-config.yaml)
 
-#### Configuring Hooks
+##### Configuring Hooks
 
 - [.pre-commit-config.yaml](./.pre-commit-config.yaml)

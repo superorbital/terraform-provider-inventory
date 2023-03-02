@@ -42,12 +42,18 @@ type itemResourceModel struct {
 }
 
 // Configure adds the provider configured client to the resource.
-func (r *itemResource) Configure(_ context.Context, req resource.ConfigureRequest, _ *resource.ConfigureResponse) {
+func (r *itemResource) Configure(ctx context.Context, req resource.ConfigureRequest, _ *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
 	}
 
-	r.client = req.ProviderData.(*client.Client)
+	client, ok := req.ProviderData.(*client.Client)
+	if !ok {
+		tflog.Error(ctx, "Unable to prepare client")
+		return
+	}
+	r.client = client
+
 }
 
 // Metadata returns the resource type name.
@@ -82,7 +88,7 @@ func (r *itemResource) Schema(_ context.Context, _ resource.SchemaRequest, resp 
 func (r *itemResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	// Retrieve import ID and save to id attribute
 	// If our ID was a string then we could do this
-	//resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	// resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 
 	id, err := strconv.ParseInt(req.ID, 10, 64)
 
@@ -97,7 +103,7 @@ func (r *itemResource) ImportState(ctx context.Context, req resource.ImportState
 	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("id"), id)...)
 }
 
-// Create a new resource
+// Create a new resource.
 func (r *itemResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	tflog.Debug(ctx, "Preparing to create item resource")
 	// Retrieve values from plan
@@ -116,11 +122,9 @@ func (r *itemResource) Create(ctx context.Context, req resource.CreateRequest, r
 		Tag:  &tag,
 	}
 
-	params := client.AddItemJSONRequestBody(item)
-
 	// Create new item
 
-	itemResponse, err := r.client.AddItem(ctx, params)
+	itemResponse, err := r.client.AddItem(ctx, item)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to Create Item",
@@ -152,7 +156,7 @@ func (r *itemResource) Create(ctx context.Context, req resource.CreateRequest, r
 	tflog.Debug(ctx, "Created item resource", map[string]any{"success": true})
 }
 
-// Read resource information
+// Read resource information.
 func (r *itemResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	tflog.Debug(ctx, "Preparing to read item resource")
 	// Get current state
@@ -229,10 +233,8 @@ func (r *itemResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		Tag:  &tag,
 	}
 
-	params := client.UpdateItemJSONRequestBody(item)
-
 	// update item
-	itemResponse, err := r.client.UpdateItem(ctx, plan.ID.ValueInt64(), params)
+	itemResponse, err := r.client.UpdateItem(ctx, plan.ID.ValueInt64(), item)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to Update Item",

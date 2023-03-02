@@ -36,12 +36,17 @@ type itemDataSourceModel struct {
 }
 
 // Configure adds the provider configured client to the data source.
-func (d *itemDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, _ *datasource.ConfigureResponse) {
+func (d *itemDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, _ *datasource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
 	}
 
-	d.client = req.ProviderData.(*client.Client)
+	client, ok := req.ProviderData.(*client.Client)
+	if !ok {
+		tflog.Error(ctx, "Unable to prepare client")
+		return
+	}
+	d.client = client
 
 }
 
