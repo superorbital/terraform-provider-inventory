@@ -4,6 +4,7 @@ vendor
 
 terraform-provider-inventory
 bin
+tf-test/.terraform.lock.hcl
 
 # Secrets & Test Data
 .env

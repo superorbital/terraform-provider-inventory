@@ -9,11 +9,11 @@ const (
 	// providerConfig is a shared configuration to combine with the actual
 	// test configuration so the Inventory client is properly configured.
 	providerConfig = `terraform {
-  required_providers {
-    inventory = {
-      source = "superorbital/inventory"
-    }
-  }
+  #required_providers {
+  #  inventory = {
+  #    source = "superorbital/inventory"
+  #  }
+  #}
 }
 
 # Configure the connection details for the Inventory service
